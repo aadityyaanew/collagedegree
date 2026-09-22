@@ -13,7 +13,7 @@ export default function CourseCard({ course }) {
       <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-slate-300 hover:-translate-y-1 h-full flex flex-col justify-between">
         <div>
           {/* Course Thumbnail Image */}
-          <div className="h-32 sm:h-36 relative overflow-hidden bg-slate-100">
+          <div className="h-24 sm:h-32 lg:h-36 relative overflow-hidden bg-slate-100">
             <Image
               src={course.image || "/courses/course-cse.jpg"}
               alt={course.name}

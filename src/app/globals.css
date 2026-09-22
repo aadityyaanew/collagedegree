@@ -113,6 +113,7 @@
   * {
     @apply border-border outline-ring/50;
     -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
   }
   body {
     @apply bg-background text-foreground;
@@ -237,6 +238,19 @@
     scrollbar-width: none;
   }
 
+  /* Touch-manipulation for faster mobile tap response */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Active scale utilities */
+  .active\:scale-98:active {
+    transform: scale(0.98);
+  }
+  .active\:scale-95:active {
+    transform: scale(0.95);
+  }
+
   /* Mobile App Shell utilities */
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -248,6 +262,14 @@
     .pb-mobile-dock {
       padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
     }
+  }
+
+  /* xs breakpoint helper utilities (480px) */
+  @media (min-width: 480px) {
+    .xs\:inline { display: inline; }
+    .xs\:block { display: block; }
+    .xs\:flex { display: flex; }
+    .xs\:hidden { display: none; }
   }
 }
 

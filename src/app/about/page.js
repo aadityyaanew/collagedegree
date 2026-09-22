@@ -1,15 +1,60 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CheckCircle2, Target, Award, Users } from "lucide-react";
+import { getBreadcrumbSchema } from "@/lib/schema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://comparedegree.com";
 
 export const metadata = {
-  title: "About Us - Compare Degree",
-  description: "Learn more about our mission to help students find their perfect online university.",
+  title: "About Us — Empowering Students to Choose the Right Degree",
+  description:
+    "Learn about Compare Degree, India's trusted platform for discovering, comparing, and enrolling in accredited colleges and online universities with unbiased data and free counselling.",
+  keywords: [
+    "about compare degree",
+    "higher education comparison India",
+    "online university admissions",
+    "unbiased college data",
+  ],
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Compare Degree — Smart Decisions, Brighter Futures",
+    description:
+      "Learn about our mission to simplify higher education decisions through verified data and free personalized counselling.",
+    url: `${SITE_URL}/about`,
+    siteName: "Compare Degree",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/heroimg.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "About Compare Degree",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Compare Degree",
+    description: "Our mission to empower students with verified college comparisons.",
+    images: ["/heroimg.jpeg"],
+  },
 };
 
 export default function AboutPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About Us", url: "/about" },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
       <main className="flex-1 bg-slate-50">
         <div className="bg-navy text-white pt-12 sm:pt-24 pb-12 sm:pb-16">
@@ -19,7 +64,7 @@ export default function AboutPage() {
                 Empowering Students to Make the Right Choice
               </h1>
               <p className="text-sm sm:text-lg text-slate-300">
-                Compare Degree is India's leading platform for discovering, comparing, and enrolling in top online universities. We bridge the gap between ambition and opportunity.
+                Compare Degree is India&apos;s leading platform for discovering, comparing, and enrolling in top online universities. We bridge the gap between ambition and opportunity.
               </p>
             </div>
           </div>

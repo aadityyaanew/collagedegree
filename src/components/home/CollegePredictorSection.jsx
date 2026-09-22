@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { formatFees, formatPackage } from "@/lib/formatters";
 
-const DEGREES = ["MBA", "B.Tech", "MCA", "BBA", "B.Sc", "M.Tech"];
+const DEGREES = ["MBA", "BBA", "BCA", "B.Com", "MCA", "MA", "M.Com", "M.Sc"];
 
 const BUDGET_OPTIONS = [
   { id: "any", label: "Any Budget" },
@@ -68,9 +68,12 @@ export default function CollegePredictorSection() {
     let pool = dbColleges.filter((c) => {
       // Check degree offering
       if (selectedDegree) {
-        const offers = c.coursesOffered?.some(
-          (course) => course.toLowerCase() === selectedDegree.toLowerCase()
-        );
+        const selClean = selectedDegree.toLowerCase().replace(/[^a-z0-9]/g, "");
+        const offers = (c.coursesOffered || []).some((course) => {
+          if (!course || typeof course !== "string") return false;
+          const cClean = course.toLowerCase().replace(/[^a-z0-9]/g, "");
+          return cClean === selClean || cClean.includes(selClean) || selClean.includes(cClean);
+        });
         if (!offers) return false;
       }
 
@@ -142,23 +145,23 @@ export default function CollegePredictorSection() {
 
       <div className="container-main relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mb-10 sm:mb-14">
+        <div className="max-w-3xl mb-8 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold mb-4 backdrop-blur-xs shadow-xs">
             <Compass className="h-4 w-4 text-rose-400 animate-pulse" />
             <span>AI-POWERED COLLEGE PREDICTOR</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3 leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3 leading-tight">
             So, where should you <span className="text-rose-400">actually go?</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
             Get your personal college shortlist in 30 seconds. Unbiased recommendations tailored to your stream, budget, and future career goals.
           </p>
         </div>
 
         {/* Split Grid: Interactive Selector + Live Recommendations */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start">
           {/* Left Column: Interactive Preference Selector */}
           <div className="lg:col-span-7 bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-5 sm:p-7 shadow-xl">
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
@@ -278,10 +281,10 @@ export default function CollegePredictorSection() {
             </div>
 
             {/* Action Buttons */}
-            <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
+            <div className="mt-6 sm:mt-8 pt-5 border-t border-white/10 flex flex-col gap-3">
               <Button
                 asChild
-                className="w-full sm:w-auto bg-crimson hover:bg-crimson-dark text-white font-bold text-sm sm:text-base rounded-xl px-7 h-11 shadow-md shadow-crimson/30 transition-all hover:shadow-lg hover:shadow-crimson/40 hover:scale-102 cursor-pointer"
+                className="w-full bg-crimson hover:bg-crimson-dark text-white font-bold text-sm rounded-xl px-7 h-12 shadow-md shadow-crimson/30 transition-all touch-manipulation"
               >
                 <Link
                   href={`/course-finder?degree=${encodeURIComponent(
@@ -296,7 +299,7 @@ export default function CollegePredictorSection() {
               <Button
                 asChild
                 variant="outline"
-                className="w-full sm:w-auto border-white/20 bg-white/5 hover:bg-white/10 text-white font-semibold text-sm rounded-xl px-5 h-11"
+                className="w-full border-white/20 bg-white/5 hover:bg-white/10 text-white font-semibold text-sm rounded-xl px-5 h-12 touch-manipulation"
               >
                 <Link href="/compare">
                   Compare Colleges Side-by-Side

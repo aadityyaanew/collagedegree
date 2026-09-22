@@ -33,16 +33,16 @@ export default function TrustedUniversitiesSection() {
       <div className="container-main">
         {/* Section Header - matches reference UX with current brand theme */}
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto mb-8 sm:mb-11">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[42px] font-bold tracking-tight text-navy leading-tight mb-2 sm:mb-3 font-heading sm:whitespace-nowrap">Your future, backed by <span className="gradient-text-crimson">certified excellence</span></h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[42px] font-bold tracking-tight text-navy leading-tight mb-2 sm:mb-3 font-heading">Your future, backed by <span className="gradient-text-crimson">certified excellence</span></h2>
           <p className="text-base sm:text-lg text-slate-500 font-medium max-w-2xl">
             The safer way to choose UGC-DEB recognized higher education.
           </p>
         </div>
 
-        {/* 4-Column University Cards Grid */}
+        {/* University Cards Grid — 2 cols on mobile, 4 on desktop */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
+          className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
         >
           <AnimatePresence>
             {displayedUniversities.map((univ, idx) => {

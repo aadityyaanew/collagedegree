@@ -115,7 +115,7 @@ export default function SearchBar({ className = "", variant = "hero" }) {
               }`}
             >
               <Building2 className="h-3.5 w-3.5 text-crimson" />
-              <span className="hidden sm:inline">Colleges</span>
+              <span>Colleges</span>
             </button>
             <button
               type="button"
@@ -130,7 +130,7 @@ export default function SearchBar({ className = "", variant = "hero" }) {
               }`}
             >
               <BookOpen className="h-3.5 w-3.5 text-blue-600" />
-              <span className="hidden sm:inline">Courses</span>
+              <span>Courses</span>
             </button>
           </div>
 

@@ -43,14 +43,16 @@ const INDIAN_STATES = [
 ];
 
 const DEFAULT_LISTED_COURSES = [
-  "BCA HONS",
-  "Bachelor of Architecture",
-  "Bachelor of Business Administration",
-  "Bachelor of Laws",
-  "Bachelor of Pharmacy",
-  "M.Tech Computer Science & Engineering",
   "Master of Business Administration",
+  "Bachelor of Business Administration",
+  "Bachelor of Computer Applications",
   "Master of Computer Applications",
+  "Bachelor of Commerce",
+  "Master of Commerce",
+  "Bachelor of Arts",
+  "Master of Arts",
+  "MSc Data Science",
+  "Executive MBA",
 ];
 
 export function openLeadModal() {
@@ -140,7 +142,7 @@ export default function LeadPopupModal() {
         }, 1500);
       }
 
-      // 2. 1-Minute Interval Popup
+      // 2. 25-Second Interval Popup (Re-appears 25s after closing)
       const intervalTimer = setInterval(() => {
         const isSub = localStorage.getItem("cc_lead_submitted") === "true";
         if (isSub) return;
@@ -148,7 +150,7 @@ export default function LeadPopupModal() {
         const lastClosed = sessionStorage.getItem("cc_lead_last_closed");
         if (lastClosed) {
           const timePassed = Date.now() - parseInt(lastClosed, 10);
-          if (timePassed >= 60000) {
+          if (timePassed >= 25000) {
             setIsOpen((prev) => {
               if (!prev) {
                 sessionStorage.removeItem("cc_lead_last_closed");
@@ -158,7 +160,7 @@ export default function LeadPopupModal() {
             });
           }
         }
-      }, 5000); // Check every 5 seconds
+      }, 2000); // Check every 2 seconds
 
       return () => {
         clearTimeout(initialTimer);
@@ -262,46 +264,46 @@ export default function LeadPopupModal() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.45, bounce: 0.15 }}
-              className="relative w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 overflow-hidden z-10 my-auto"
+              className="relative w-full max-w-md sm:max-w-lg bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 overflow-hidden z-10 my-auto max-h-[92vh] flex flex-col"
             >
               {/* Header Crimson Top Bar */}
-              <div className="h-1.5 bg-crimson" />
+              <div className="h-1 sm:h-1.5 bg-crimson shrink-0" />
 
               {/* Close Button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors z-20"
+                className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors z-20"
                 aria-label="Close modal"
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
 
               {/* Modal Content */}
-              <div className="p-6 sm:p-8">
+              <div className="p-4 sm:p-8 overflow-y-auto">
                 {!isSubmitted ? (
                   <>
                     {/* Header */}
-                    <div className="text-center mb-6">
-                      <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-crimson-light text-crimson text-xs font-semibold mb-2.5 border border-crimson/15">
+                    <div className="text-center mb-3.5 sm:mb-6">
+                      <div className="inline-flex items-center px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-crimson-light text-crimson text-[10px] sm:text-xs font-semibold mb-1.5 sm:mb-2.5 border border-crimson/15">
                         <span>Expert College & Course Guidance</span>
                       </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-navy tracking-tight">
+                      <h3 className="text-lg sm:text-2xl font-bold text-navy tracking-tight leading-snug">
                         Find Your Dream Degree
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-sm mx-auto">
+                      <p className="text-[11px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1 max-w-sm mx-auto leading-tight sm:leading-normal">
                         Fill in your details to get free personalized counseling from verified academic advisors.
                       </p>
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-4">
                       {/* Name */}
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        <label className="block text-[11px] sm:text-xs font-semibold text-slate-700 mb-0.5 sm:mb-1">
                           Full Name <span className="text-crimson">*</span>
                         </label>
                         <div className="relative">
-                          <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400" />
                           <input
                             type="text"
                             placeholder="e.g. Rahul Sharma"
@@ -310,25 +312,25 @@ export default function LeadPopupModal() {
                               setFormData({ ...formData, name: e.target.value });
                               if (errors.name) setErrors({ ...errors, name: null });
                             }}
-                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border ${
+                            className={`w-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2.5 bg-slate-50 border ${
                               errors.name ? "border-red-400 bg-red-50/20" : "border-slate-200"
-                            } rounded-xl text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
+                            } rounded-lg sm:rounded-xl text-xs sm:text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
                           />
                         </div>
                         {errors.name && (
-                          <p className="text-[11px] text-red-500 mt-1 font-medium">{errors.name}</p>
+                          <p className="text-[10px] sm:text-[11px] text-red-500 mt-0.5 font-medium">{errors.name}</p>
                         )}
                       </div>
 
                       {/* Phone & Email (Side by Side on sm) */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
                         {/* Phone */}
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label className="block text-[11px] sm:text-xs font-semibold text-slate-700 mb-0.5 sm:mb-1">
                             Phone Number <span className="text-crimson">*</span>
                           </label>
                           <div className="relative flex items-center">
-                            <span className="absolute left-3 text-xs font-semibold text-slate-500 select-none">
+                            <span className="absolute left-2.5 sm:left-3 text-[11px] sm:text-xs font-semibold text-slate-500 select-none">
                               +91
                             </span>
                             <input
@@ -341,23 +343,23 @@ export default function LeadPopupModal() {
                                 setFormData({ ...formData, phone: val });
                                 if (errors.phone) setErrors({ ...errors, phone: null });
                               }}
-                              className={`w-full pl-11 pr-3 py-2.5 bg-slate-50 border ${
+                              className={`w-full pl-9 sm:pl-11 pr-2.5 sm:pr-3 py-1.5 sm:py-2.5 bg-slate-50 border ${
                                 errors.phone ? "border-red-400 bg-red-50/20" : "border-slate-200"
-                              } rounded-xl text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
+                              } rounded-lg sm:rounded-xl text-xs sm:text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
                             />
                           </div>
                           {errors.phone && (
-                            <p className="text-[11px] text-red-500 mt-1 font-medium">{errors.phone}</p>
+                            <p className="text-[10px] sm:text-[11px] text-red-500 mt-0.5 font-medium">{errors.phone}</p>
                           )}
                         </div>
 
                         {/* Email */}
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label className="block text-[11px] sm:text-xs font-semibold text-slate-700 mb-0.5 sm:mb-1">
                             Email Address <span className="text-crimson">*</span>
                           </label>
                           <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                            <Mail className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400" />
                             <input
                               type="email"
                               placeholder="rahul@gmail.com"
@@ -366,29 +368,29 @@ export default function LeadPopupModal() {
                                 setFormData({ ...formData, email: e.target.value });
                                 if (errors.email) setErrors({ ...errors, email: null });
                               }}
-                              className={`w-full pl-9 pr-3 py-2.5 bg-slate-50 border ${
+                              className={`w-full pl-8 sm:pl-9 pr-2.5 sm:pr-3 py-1.5 sm:py-2.5 bg-slate-50 border ${
                                 errors.email ? "border-red-400 bg-red-50/20" : "border-slate-200"
-                              } rounded-xl text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
+                              } rounded-lg sm:rounded-xl text-xs sm:text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
                             />
                           </div>
                           {errors.email && (
-                            <p className="text-[11px] text-red-500 mt-1 font-medium">{errors.email}</p>
+                            <p className="text-[10px] sm:text-[11px] text-red-500 mt-0.5 font-medium">{errors.email}</p>
                           )}
                         </div>
                       </div>
 
-                      {/* State & City (Side by Side on sm) */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      {/* State & City (Side by Side) */}
+                      <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3.5">
                         {/* State */}
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label className="block text-[11px] sm:text-xs font-semibold text-slate-700 mb-0.5 sm:mb-1">
                             State <span className="text-crimson">*</span>
                           </label>
                           <div className="relative">
                             <select
                               value={formData.state}
                               onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                              className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-navy focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all appearance-none cursor-pointer"
+                              className="w-full px-2 sm:px-3 py-1.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm text-navy focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all appearance-none cursor-pointer pr-6 sm:pr-8"
                             >
                               {INDIAN_STATES.map((st) => (
                                 <option key={st} value={st}>
@@ -396,8 +398,8 @@ export default function LeadPopupModal() {
                                 </option>
                               ))}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
-                              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 sm:px-2.5 text-slate-500">
+                              <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" viewBox="0 0 20 20">
                                 <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                               </svg>
                             </div>
@@ -406,11 +408,11 @@ export default function LeadPopupModal() {
 
                         {/* City */}
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label className="block text-[11px] sm:text-xs font-semibold text-slate-700 mb-0.5 sm:mb-1">
                             City <span className="text-crimson">*</span>
                           </label>
                           <div className="relative">
-                            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                            <MapPin className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400" />
                             <input
                               type="text"
                               placeholder="e.g. Pune"
@@ -419,28 +421,28 @@ export default function LeadPopupModal() {
                                 setFormData({ ...formData, city: e.target.value });
                                 if (errors.city) setErrors({ ...errors, city: null });
                               }}
-                              className={`w-full pl-9 pr-3 py-2.5 bg-slate-50 border ${
+                              className={`w-full pl-8 sm:pl-9 pr-2.5 sm:pr-3 py-1.5 sm:py-2.5 bg-slate-50 border ${
                                 errors.city ? "border-red-400 bg-red-50/20" : "border-slate-200"
-                              } rounded-xl text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
+                              } rounded-lg sm:rounded-xl text-xs sm:text-sm text-navy placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all`}
                             />
                           </div>
                           {errors.city && (
-                            <p className="text-[11px] text-red-500 mt-1 font-medium">{errors.city}</p>
+                            <p className="text-[10px] sm:text-[11px] text-red-500 mt-0.5 font-medium">{errors.city}</p>
                           )}
                         </div>
                       </div>
 
                       {/* Course */}
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        <label className="block text-[11px] sm:text-xs font-semibold text-slate-700 mb-0.5 sm:mb-1">
                           Interested Course <span className="text-crimson">*</span>
                         </label>
                         <div className="relative">
-                          <GraduationCap className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+                          <GraduationCap className="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400 pointer-events-none" />
                           <select
                             value={formData.course}
                             onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-                            className="w-full pl-10 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-navy focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all appearance-none cursor-pointer"
+                            className="w-full pl-8 sm:pl-10 pr-6 sm:pr-8 py-1.5 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm text-navy focus:bg-white focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all appearance-none cursor-pointer"
                           >
                             {coursesList.map((course) => (
                               <option key={course} value={course}>
@@ -448,8 +450,8 @@ export default function LeadPopupModal() {
                               </option>
                             ))}
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
-                            <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 sm:px-2.5 text-slate-500">
+                            <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" viewBox="0 0 20 20">
                               <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                             </svg>
                           </div>
@@ -460,25 +462,25 @@ export default function LeadPopupModal() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-crimson hover:bg-crimson-dark text-white font-semibold h-11 rounded-xl text-sm shadow-xs transition-all flex items-center justify-center gap-2 mt-2 cursor-pointer"
+                        className="w-full bg-crimson hover:bg-crimson-dark text-white font-semibold h-9 sm:h-11 rounded-lg sm:rounded-xl text-xs sm:text-sm shadow-xs transition-all flex items-center justify-center gap-1.5 sm:gap-2 mt-1.5 sm:mt-2 cursor-pointer"
                       >
                         {isSubmitting ? (
                           <>
-                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" />
                             <span>Submitting Request...</span>
                           </>
                         ) : (
                           <>
                             <span>Get Free Expert Advice</span>
-                            <ArrowRight className="h-4 w-4" />
+                            <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                           </>
                         )}
                       </Button>
 
                       {/* Micro Trust Banner */}
-                      <div className="flex items-center justify-center pt-2 text-[11px] text-slate-400">
+                      <div className="flex items-center justify-center pt-1 sm:pt-2 text-[10px] sm:text-[11px] text-slate-400">
                         <span className="flex items-center gap-1">
-                          <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                          <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600" />
                           100% Free & Confidential
                         </span>
                       </div>
@@ -486,29 +488,29 @@ export default function LeadPopupModal() {
                   </>
                 ) : (
                   /* Success View */
-                  <div className="text-center py-6 sm:py-8 space-y-4">
-                    <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 shadow-sm animate-bounce">
-                      <CheckCircle2 className="h-8 w-8" />
+                  <div className="text-center py-4 sm:py-8 space-y-3 sm:space-y-4">
+                    <div className="inline-flex items-center justify-center h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 shadow-sm animate-bounce">
+                      <CheckCircle2 className="h-6 w-6 sm:h-8 sm:w-8" />
                     </div>
 
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-bold text-navy tracking-tight">
+                    <div className="space-y-1.5 sm:space-y-2">
+                      <h3 className="text-lg sm:text-2xl font-bold text-navy tracking-tight">
                         Thank You, {formData.name.split(" ")[0]}!
                       </h3>
-                      <p className="text-sm text-slate-600 max-w-xs mx-auto leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 max-w-xs mx-auto leading-relaxed">
                         We have received your counselling request for{" "}
                         <strong className="text-navy">{formData.course}</strong>.
                       </p>
-                      <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-xl text-xs text-slate-600 max-w-sm mx-auto mt-3">
+                      <div className="p-2.5 sm:p-3.5 bg-slate-50 border border-slate-100 rounded-lg sm:rounded-xl text-[11px] sm:text-xs text-slate-600 max-w-sm mx-auto mt-2 sm:mt-3">
                         📞 One of our top education counselors will contact you shortly at{" "}
                         <span className="font-semibold text-navy">+91 {formData.phone}</span>.
                       </div>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-2 sm:pt-4">
                       <Button
                         onClick={handleClose}
-                        className="bg-navy hover:bg-navy/90 text-white font-semibold px-6 h-11 rounded-xl text-sm shadow-sm transition-all"
+                        className="bg-navy hover:bg-navy/90 text-white font-semibold px-5 sm:px-6 h-9 sm:h-11 rounded-lg sm:rounded-xl text-xs sm:text-sm shadow-sm transition-all"
                       >
                         Continue Exploring Colleges
                       </Button>

@@ -39,7 +39,7 @@ export default function HowItWorksSection({ steps = defaultSteps }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
@@ -49,18 +49,18 @@ export default function HowItWorksSection({ steps = defaultSteps }) {
               transition={{ delay: i * 0.06, duration: 0.35, ease: "easeOut" }}
               className="text-center transform-gpu"
             >
-              <div className="relative inline-flex mb-5">
-                <div className="h-14 w-14 rounded-2xl bg-crimson/10 flex items-center justify-center">
-                  <step.icon className="h-6 w-6 text-crimson" />
+              <div className="relative inline-flex mb-3 sm:mb-5">
+                <div className="h-11 w-11 sm:h-14 sm:w-14 rounded-2xl bg-crimson/10 flex items-center justify-center">
+                  <step.icon className="h-5 w-5 sm:h-6 sm:w-6 text-crimson" />
                 </div>
-                <span className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-crimson text-white text-xs font-bold flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-crimson text-white text-[10px] sm:text-xs font-bold flex items-center justify-center">
                   {step.number.replace("0", "")}
                 </span>
               </div>
-              <h3 className="text-base font-semibold text-navy mb-2">
+              <h3 className="text-sm sm:text-base font-semibold text-navy mb-1.5 sm:mb-2">
                 {step.title}
               </h3>
-              <p className="text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
                 {step.description}
               </p>
             </motion.div>

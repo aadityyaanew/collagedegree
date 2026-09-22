@@ -11,6 +11,30 @@ const noCacheHeaders = {
   Expires: '0',
 };
 
+const normalizeFees = (fees) => {
+  if (!fees) return {};
+  if (fees instanceof Map) return Object.fromEntries(fees);
+  if (typeof fees === 'object') {
+    const result = {};
+    for (const [k, v] of Object.entries(fees)) {
+      if (v !== undefined && v !== null && v !== '') {
+        result[k.toLowerCase()] = Number(v) || v;
+      }
+    }
+    return result;
+  }
+  return {};
+};
+
+const normalizeCutoff = (cutoff) => {
+  if (!cutoff) return {};
+  if (cutoff instanceof Map) return Object.fromEntries(cutoff);
+  if (typeof cutoff === 'object') {
+    return { ...cutoff };
+  }
+  return {};
+};
+
 const normalizeCollege = (c) => {
   const loc = typeof c.location === 'string'
     ? { city: c.location.split(',')[0]?.trim() || 'Online', state: c.location.split(',')[1]?.trim() || 'India' }
@@ -29,7 +53,8 @@ const normalizeCollege = (c) => {
     naacGrade: c.naacGrade || 'A',
     logo: c.logo || c.image || '',
     campus: c.campus || '/campus-placeholder.jpg',
-    fees: (c.fees && typeof c.fees === 'object' && Object.keys(c.fees).length > 0) ? c.fees : {},
+    fees: normalizeFees(c.fees),
+    cutoff: normalizeCutoff(c.cutoff),
     coursesOffered: (Array.isArray(c.coursesOffered) && c.coursesOffered.length > 0) 
       ? c.coursesOffered 
       : (Array.isArray(c.courses) && c.courses.length > 0 ? c.courses : []),

@@ -7,13 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { openLeadModal } from "@/components/shared/LeadPopupModal";
 
 const navLinks = [
   { label: "Colleges", href: "/colleges" },
   { label: "Courses", href: "/courses" },
   { label: "Compare", href: "/compare" },
-  { label: "Rewards", href: "/rewards" },
+  { label: "Scholarships", href: "/scholarships" },
   { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -63,23 +62,13 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              link.href === "/contact" ? (
-                <button
-                  key={link.label}
-                  onClick={openLeadModal}
-                  className="px-3.5 py-2 text-sm font-semibold text-slate-900 hover:text-crimson transition-colors rounded-md hover:bg-slate-50 cursor-pointer"
-                >
-                  {link.label}
-                </button>
-              ) : (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="px-3.5 py-2 text-sm font-semibold text-slate-900 hover:text-crimson transition-colors rounded-md hover:bg-slate-50"
-                >
-                  {link.label}
-                </Link>
-              )
+              <Link
+                key={link.label}
+                href={link.href}
+                className="px-3.5 py-2 text-sm font-semibold text-slate-900 hover:text-crimson transition-colors rounded-md hover:bg-slate-50"
+              >
+                {link.label}
+              </Link>
             ))}
           </div>
 
@@ -100,9 +89,9 @@ export default function Navbar() {
           <div className="flex items-center gap-2 lg:hidden">
             <Link
               href="/course-finder"
-              className="flex items-center gap-1.5 bg-crimson hover:bg-crimson-light text-white px-4 py-2.25 rounded-xl text-sm font-semibold shadow-[0_8px_20px_-8px_rgba(225,29,72,0.6)] hover:shadow-[0_8px_25px_-5px_rgba(225,29,72,0.7)] transition-all hover:-translate-y-0.5"
+              className="flex items-center gap-1.5 bg-crimson hover:bg-crimson-dark text-white px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(225,29,72,0.5)] transition-all active:scale-95 touch-manipulation whitespace-nowrap"
             >
-              <UserCheck className="h-4 w-4" />
+              <UserCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
               <span>Course Advisor</span>
             </Link>
 
@@ -126,9 +115,6 @@ export default function Navbar() {
                       style={{ width: "auto" }}
                       className="h-8 w-auto object-contain"
                     />
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-crimson bg-crimson-50 px-2 py-0.5 rounded-md border border-crimson/20">
-                      Mobile App
-                    </span>
                   </div>
 
                   {/* Mobile Links */}
@@ -136,23 +122,13 @@ export default function Navbar() {
                     <div className="px-3 py-2 space-y-1">
                       {navLinks.map((link) => (
                         <SheetClose asChild key={link.label}>
-                          {link.href === "/contact" ? (
-                            <button
-                              onClick={openLeadModal}
-                              className="flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold text-slate-800 hover:text-crimson hover:bg-rose-50/50 rounded-xl transition-all cursor-pointer text-left w-full"
-                            >
-                              <span>{link.label}</span>
-                              <span className="text-slate-300 text-xs font-normal">&rsaquo;</span>
-                            </button>
-                          ) : (
-                            <Link
-                              href={link.href}
-                              className="flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold text-slate-800 hover:text-crimson hover:bg-rose-50/50 rounded-xl transition-all"
-                            >
-                              <span>{link.label}</span>
-                              <span className="text-slate-300 text-xs font-normal">&rsaquo;</span>
-                            </Link>
-                          )}
+                          <Link
+                            href={link.href}
+                            className="flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold text-slate-800 hover:text-crimson hover:bg-rose-50/50 rounded-xl transition-all"
+                          >
+                            <span>{link.label}</span>
+                            <span className="text-slate-300 text-xs font-normal">&rsaquo;</span>
+                          </Link>
                         </SheetClose>
                       ))}
                     </div>

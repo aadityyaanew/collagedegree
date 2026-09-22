@@ -1,14 +1,42 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { getBreadcrumbSchema } from "@/lib/schema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://comparedegree.com";
 
 export const metadata = {
-  title: "Privacy Policy - Compare Degree",
-  description: "Privacy Policy and data protection guidelines.",
+  title: "Privacy Policy — Compare Degree",
+  description:
+    "Read the Privacy Policy for Compare Degree to understand how we collect, protect, and handle your student and enquiry data.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy — Compare Degree",
+    description: "Compare Degree data protection and privacy practices.",
+    url: `${SITE_URL}/privacy-policy`,
+    siteName: "Compare Degree",
+    locale: "en_IN",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function PrivacyPolicyPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Privacy Policy", url: "/privacy-policy" },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
       <main className="flex-1 bg-slate-50 py-16">
         <div className="container-main max-w-4xl">
@@ -46,7 +74,7 @@ export default function PrivacyPolicyPage() {
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">4. Third-Party Privacy Policies</h2>
               <p>
-                Compare Degree's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
+                Compare Degree&apos;s Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
               </p>
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">5. Contact Us</h2>

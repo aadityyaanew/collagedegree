@@ -35,10 +35,10 @@ export default function CtaSection() {
             Stop relying on hearsay. Get transparent placement stats, true tuition breakdowns, and verified alumni reviews side-by-side in seconds.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3.5 mb-8">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-8">
             <Button
               asChild
-              className="bg-white text-crimson hover:bg-slate-100 font-bold px-7 h-12 text-sm sm:text-base rounded-xl shadow-lg shadow-black/15 transition-all hover:shadow-xl hover:scale-102"
+              className="bg-white text-crimson hover:bg-slate-100 font-bold px-7 h-12 text-sm sm:text-base rounded-xl shadow-lg shadow-black/15 transition-all hover:shadow-xl touch-manipulation"
             >
               <Link href="/course-finder">
                 Try Course Advisor Free
@@ -48,7 +48,7 @@ export default function CtaSection() {
             <Button
               asChild
               variant="outline"
-              className="border-white/30 text-white bg-white/10 hover:bg-white/20 font-semibold px-6 h-12 text-sm sm:text-base rounded-xl backdrop-blur-xs"
+              className="border-white/30 text-white bg-white/10 hover:bg-white/20 font-semibold px-6 h-12 text-sm sm:text-base rounded-xl backdrop-blur-xs touch-manipulation"
             >
               <Link href="/colleges">
                 <Building2 className="mr-2 h-4 w-4" />

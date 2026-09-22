@@ -32,7 +32,7 @@ export default function TestimonialsSection({
           >
             {/* Duplicated list for seamless infinite loop (must be exactly 2 sets for -50% translation) */}
             {[...testimonialList, ...testimonialList].map((t, i) => (
-              <div key={`${t.id}-${i}`} className="w-[280px] sm:w-[350px] shrink-0 transform-gpu">
+              <div key={`${t.id}-${i}`} className="w-[260px] sm:w-[320px] lg:w-[350px] shrink-0 transform-gpu">
                 <TestimonialCard testimonial={t} />
               </div>
             ))}

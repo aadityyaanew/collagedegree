@@ -1,247 +1,141 @@
-"use client";
-
-import { use, useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import {
-  Clock,
-  GraduationCap,
-  IndianRupee,
-  BookOpen,
-  ChevronRight,
-  Briefcase,
-  FileText,
-  Award,
-  Loader2,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import CollegeCard from "@/components/shared/CollegeCard";
-// Removed static getCollegeById import
+import dbConnect from "@/lib/mongodb";
+import Course from "@/models/Course";
+import College from "@/models/College";
+import CourseDetailClient from "./CourseDetailClient";
+import { getCourseSchema, getBreadcrumbSchema } from "@/lib/schema";
 
-export default function CourseDetailPage({ params }) {
-  const { id } = use(params);
-  const [course, setCourse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [allColleges, setAllColleges] = useState([]);
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const res = await fetch(`/api/courses/${id}`, { cache: "no-store" });
-        if (res.ok) {
-          const data = await res.json();
-          setCourse(data);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://comparedegree.com";
+
+async function getCourseData(slug) {
+  if (!slug) return null;
+  try {
+    await dbConnect();
+    const course = await Course.findOne({
+      $or: [{ slug: slug }, { slug: slug.toLowerCase() }],
+    }).lean();
+
+    if (!course) return null;
+
+    // Fetch all colleges to match top colleges
+    const colleges = await College.find({}).lean();
+    const formattedColleges = colleges.map((c) => ({
+      ...c,
+      _id: c._id.toString(),
+      id: c.id || c._id.toString(),
+    }));
+
+    return {
+      course: {
+        ...course,
+        _id: course._id.toString(),
+        id: course.slug,
+      },
+      colleges: formattedColleges,
     };
-    fetchCourse();
-  }, [id]);
+  } catch (error) {
+    console.error("Error fetching course for SEO / page:", error);
+    return null;
+  }
+}
 
-  useEffect(() => {
-    fetch("/api/colleges", { cache: "no-store" })
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setAllColleges(data);
-      })
-      .catch(() => {});
-  }, []);
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const data = await getCourseData(id);
 
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <main className="flex-1 bg-slate-50 flex items-center justify-center min-h-[60vh]">
-          <Loader2 className="h-10 w-10 text-crimson animate-spin" />
-        </main>
-        <Footer />
-      </>
-    );
+  if (!data || !data.course) {
+    return {
+      title: "Course Not Found",
+      description: "The requested degree course details could not be found.",
+    };
   }
 
-  if (error || !course) {
+  const { course } = data;
+  const title = `${course.name} (${course.shortName || course.name}) — Duration, Fees, Eligibility & Top Colleges`;
+  const exams = course.eligibilityExams?.length
+    ? `Exams: ${course.eligibilityExams.slice(0, 3).join(", ")}. `
+    : "";
+  const fees = course.avgFees
+    ? `Avg fees ${(course.avgFees / 100000).toFixed(1)} Lakhs. `
+    : "";
+  const description = `${course.name} (${course.level} Degree): ${exams}${fees}Explore syllabus, top career pathways, and leading colleges offering ${course.shortName} in India.`;
+  const canonicalUrl = `/courses/${course.slug || id}`;
+  const ogImage = course.image?.startsWith("http")
+    ? course.image
+    : `${SITE_URL}${course.image || "/courses/course-cse.jpg"}`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      course.name,
+      course.shortName,
+      `${course.name} eligibility`,
+      `${course.name} fees in India`,
+      `${course.name} top colleges`,
+      `${course.name} syllabus`,
+      `${course.level} courses in India`,
+      ...(course.careers || []),
+      ...(course.eligibilityExams || []),
+    ],
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}${canonicalUrl}`,
+      siteName: "Compare Degree",
+      locale: "en_IN",
+      type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${course.name} Degree Details`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
+
+export default async function CourseDetailPage({ params }) {
+  const { id } = await params;
+  const data = await getCourseData(id);
+
+  if (!data || !data.course) {
     notFound();
   }
 
-  const topColleges = (course.topColleges || [])
-    .map((cid) => {
-      const fromDb = allColleges.find(
-        (c) => c.id === cid || c.id?.toLowerCase() === cid?.toLowerCase() || c._id === cid
-      );
-      return fromDb;
-    })
-    .filter(Boolean);
+  const { course, colleges } = data;
+  const courseSchema = getCourseSchema(course);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Courses", url: "/courses" },
+    { name: course.shortName || course.name, url: `/courses/${course.slug}` },
+  ]);
 
   return (
     <>
-      <Navbar />
-      <main className="flex-1 bg-slate-50">
-        {/* Course Banner Hero */}
-        <div className="relative min-h-[220px] sm:min-h-[260px] w-full bg-slate-950 overflow-hidden flex flex-col justify-between">
-          <Image
-            src={course.image || "/courses/course-cse.jpg"}
-            alt={course.name}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-black/40" />
-
-          {/* Breadcrumb */}
-          <div className="container-main pt-4 relative z-10">
-            <div className="flex items-center gap-1.5 text-xs text-white/70">
-              <Link href="/" className="hover:text-white transition-colors">
-                Home
-              </Link>
-              <ChevronRight className="h-3 w-3" />
-              <Link
-                href="/courses"
-                className="hover:text-white transition-colors"
-              >
-                Courses
-              </Link>
-              <ChevronRight className="h-3 w-3" />
-              <span className="text-white font-medium">{course.shortName}</span>
-            </div>
-          </div>
-
-          {/* Hero Content */}
-          <div className="container-main pb-6 pt-6 relative z-10">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <div>
-                <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span
-                    className={`text-xs font-bold px-2.5 py-0.5 rounded-md ${
-                      course.level === "UG"
-                        ? "bg-blue-600 text-white"
-                        : "bg-purple-600 text-white"
-                    }`}
-                  >
-                    {course.level === "UG" ? "Undergraduate Degree" : "Postgraduate Degree"}
-                  </span>
-                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-white/20 backdrop-blur-md text-white">
-                    {course.duration}
-                  </span>
-                </div>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm">
-                  {course.name}
-                </h1>
-                <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-200 mt-2">
-                  <span className="flex items-center gap-1">
-                    <IndianRupee className="h-3.5 w-3.5 text-emerald-400" />
-                    {(course.avgFees / 100000).toFixed(1)} Lakhs avg fees
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <BookOpen className="h-3.5 w-3.5 text-slate-300" />
-                    {course.subjects?.length || 0} Core Subjects
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container-main py-8 space-y-6">
-          {/* About */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6">
-            <h2 className="text-base font-semibold text-navy mb-3">
-              About {course.shortName}
-            </h2>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              {course.description}
-            </p>
-          </div>
-
-          {/* Key Info Grid */}
-          <div className="grid sm:grid-cols-3 gap-4">
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <FileText className="h-4 w-4 text-crimson" />
-                <h3 className="text-sm font-semibold text-navy">
-                  Entrance Exams
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {course.eligibilityExams.map((exam) => (
-                  <Badge
-                    key={exam}
-                    variant="outline"
-                    className="text-[10px] border-slate-200 text-slate-600"
-                  >
-                    {exam}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <BookOpen className="h-4 w-4 text-crimson" />
-                <h3 className="text-sm font-semibold text-navy">
-                  Key Subjects
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {course.subjects.slice(0, 6).map((subject) => (
-                  <Badge
-                    key={subject}
-                    variant="secondary"
-                    className="text-[10px]"
-                  >
-                    {subject}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200 rounded-xl p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <Briefcase className="h-4 w-4 text-crimson" />
-                <h3 className="text-sm font-semibold text-navy">
-                  Career Paths
-                </h3>
-              </div>
-              <ul className="space-y-1.5">
-                {course.careers.map((career) => (
-                  <li
-                    key={career}
-                    className="text-xs text-slate-600 flex items-center gap-1.5"
-                  >
-                    <ChevronRight className="h-3 w-3 text-slate-400" />
-                    {career}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Top Colleges */}
-          {topColleges.length > 0 && (
-            <div>
-              <h2 className="heading-3 mb-4">
-                Top Colleges for {course.shortName}
-              </h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {topColleges.map((college) => (
-                  <CollegeCard key={college.id} college={college} compact />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </main>
-      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <CourseDetailClient initialCourse={course} initialColleges={colleges} />
     </>
   );
 }

@@ -57,7 +57,7 @@ export default function PopularComparisonsSection({
         </div>
 
         {/* Comparison Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {comparisons.map(({ tag, college1, college2 }, i) => {
             if (!college1 || !college2) return null;
 

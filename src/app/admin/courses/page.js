@@ -17,6 +17,7 @@ export default function CoursesPage() {
     name: "",
     slug: "",
     shortName: "",
+    description: "",
     level: "UG",
     duration: "",
     category: "",
@@ -100,6 +101,7 @@ export default function CoursesPage() {
       name: course.name || "",
       slug: course.slug || "",
       shortName: course.shortName || "",
+      description: course.description || "",
       level: course.level || "UG",
       duration: course.duration || "",
       category: course.category || "",
@@ -119,7 +121,7 @@ export default function CoursesPage() {
     setShowAddForm(false);
     setEditingId(null);
     setFormData({ 
-      name: "", slug: "", shortName: "", level: "UG", duration: "", category: "",
+      name: "", slug: "", shortName: "", description: "", level: "UG", duration: "", category: "",
       avgFees: "", image: "", topColleges: "", eligibilityExams: "", subjects: "", careers: ""
     });
   };
@@ -263,6 +265,16 @@ export default function CoursesPage() {
                 placeholder="Upload Course Image"
                 value={formData.image}
                 onChange={(url) => setFormData({...formData, image: url})}
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">About / Description</label>
+              <textarea 
+                className="w-full rounded-xl border border-slate-200 py-2.5 px-4 focus:ring-2 focus:ring-crimson/20 focus:border-crimson outline-none transition-all bg-slate-50 focus:bg-white" 
+                placeholder="Detailed description about the course..."
+                rows={4}
+                value={formData.description}
+                onChange={e => setFormData({...formData, description: e.target.value})}
               />
             </div>
             <div className="md:col-span-2">

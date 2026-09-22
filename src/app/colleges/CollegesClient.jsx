@@ -18,24 +18,25 @@ import CollegeCard from "@/components/shared/CollegeCard";
 const fallbackColleges = [];
 
 const ALL_COURSES = [
+  "BA",
+  "BBA",
+  "BCA",
   "B.Com",
   "B.Sc",
-  "B.Tech",
-  "BBA",
-  "M.Com",
-  "M.Sc",
-  "M.Tech",
+  "MA",
   "MBA",
   "MCA",
-  "Ph.D",
+  "M.Com",
+  "M.Sc",
+  "Executive MBA",
 ];
 
 const FEE_RANGES = [
   { label: "Any Fee", value: "All" },
-  { label: "Under 5 Lakhs", value: "<5L" },
+  { label: "Under 2 Lakhs", value: "<2L" },
+  { label: "2L - 5 Lakhs", value: "2L-5L" },
   { label: "5L - 10 Lakhs", value: "5L-10L" },
-  { label: "10L - 15 Lakhs", value: "10L-15L" },
-  { label: "Above 15 Lakhs", value: ">15L" },
+  { label: "Above 10 Lakhs", value: ">10L" },
 ];
 
 const MIN_PACKAGES = [
@@ -54,6 +55,7 @@ const sortOptions = [
 ];
 
 function FilterPanel({
+  courseOptions = ALL_COURSES,
   selectedCourses,
   setSelectedCourses,
   feeRange,
@@ -75,15 +77,15 @@ function FilterPanel({
       <div>
         <h3 className="text-sm font-semibold text-navy mb-3">Programs Offered</h3>
         <div className="flex flex-wrap gap-2">
-          {ALL_COURSES.map((c) => {
+          {courseOptions.map((c) => {
             const isSelected = selectedCourses.includes(c);
             return (
               <button
                 key={c}
                 onClick={() => toggleCourse(c)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all flex items-center gap-1.5 cursor-pointer ${
                   isSelected
-                    ? "bg-crimson text-white border-crimson shadow-xs"
+                    ? "bg-crimson text-white border-crimson shadow-xs font-semibold"
                     : "bg-white text-slate-600 border-slate-200 hover:border-crimson/50 hover:bg-crimson/5"
                 }`}
               >
@@ -97,7 +99,7 @@ function FilterPanel({
 
       {/* Fee Range Filter */}
       <div>
-        <h3 className="text-sm font-semibold text-navy mb-3">Total Fees (B.Tech)</h3>
+        <h3 className="text-sm font-semibold text-navy mb-3">Total Program Fees</h3>
         <div className="space-y-2">
           {FEE_RANGES.map((range) => (
             <label
@@ -110,7 +112,7 @@ function FilterPanel({
                 value={range.value}
                 checked={feeRange === range.value}
                 onChange={(e) => setFeeRange(e.target.value)}
-                className="w-4 h-4 text-crimson focus:ring-crimson border-slate-300 accent-crimson"
+                className="w-4 h-4 text-crimson focus:ring-crimson border-slate-300 accent-crimson cursor-pointer"
               />
               <span
                 className={`text-xs transition-colors ${
@@ -141,7 +143,7 @@ function FilterPanel({
                 value={pkg.value}
                 checked={minPackage === pkg.value}
                 onChange={(e) => setMinPackage(e.target.value)}
-                className="w-4 h-4 text-crimson focus:ring-crimson border-slate-300 accent-crimson"
+                className="w-4 h-4 text-crimson focus:ring-crimson border-slate-300 accent-crimson cursor-pointer"
               />
               <span
                 className={`text-xs transition-colors ${
@@ -166,6 +168,7 @@ export default function CollegesClient({ initialColleges = [] }) {
   const [feeRange, setFeeRange] = useState("All");
   const [minPackage, setMinPackage] = useState("All");
   const [sort, setSort] = useState("ranking");
+  const [availableCourses, setAvailableCourses] = useState(ALL_COURSES);
   const [collegeList, setCollegeList] = useState(
     initialColleges && initialColleges.length > 0 ? initialColleges : fallbackColleges
   );
@@ -175,6 +178,29 @@ export default function CollegesClient({ initialColleges = [] }) {
       setCollegeList(initialColleges);
     }
   }, [initialColleges]);
+
+  useEffect(() => {
+    fetch("/api/courses", { cache: "no-store" })
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("Failed");
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const names = Array.from(
+            new Set(
+              data
+                .map((c) => c.shortName || c.name)
+                .filter(Boolean)
+            )
+          );
+          if (names.length > 0) {
+            setAvailableCourses(names);
+          }
+        }
+      })
+      .catch((err) => console.error("Failed to load dynamic courses for filters:", err));
+  }, []);
 
   useEffect(() => {
     fetch("/api/colleges", { cache: "no-store" })
@@ -222,18 +248,25 @@ export default function CollegesClient({ initialColleges = [] }) {
     // Courses filter
     if (selectedCourses.length > 0) {
       result = result.filter((c) =>
-        selectedCourses.some((sc) => c.coursesOffered?.includes(sc))
+        selectedCourses.some((sc) => {
+          const scClean = sc.toLowerCase().replace(/[^a-z0-9]/g, "");
+          return (c.coursesOffered || []).some((co) => {
+            if (!co || typeof co !== "string") return false;
+            const coClean = co.toLowerCase().replace(/[^a-z0-9]/g, "");
+            return coClean === scClean || coClean.includes(scClean) || scClean.includes(coClean);
+          });
+        })
       );
     }
 
     // Fee range filter
     if (feeRange !== "All") {
       result = result.filter((c) => {
-        const fee = c.fees?.btech || c.fees?.mba || 0;
-        if (feeRange === "<5L") return fee < 500000;
-        if (feeRange === "5L-10L") return fee >= 500000 && fee <= 1000000;
-        if (feeRange === "10L-15L") return fee > 1000000 && fee <= 1500000;
-        if (feeRange === ">15L") return fee > 1500000;
+        const fee = c.fees?.btech || c.fees?.mba || c.fees?.bba || c.fees?.bca || c.fees?.bcom || 0;
+        if (feeRange === "<2L") return fee > 0 && fee < 200000;
+        if (feeRange === "2L-5L") return fee >= 200000 && fee <= 500000;
+        if (feeRange === "5L-10L") return fee > 500000 && fee <= 1000000;
+        if (feeRange === ">10L") return fee > 1000000;
         return true;
       });
     }
@@ -256,10 +289,10 @@ export default function CollegesClient({ initialColleges = [] }) {
         result.sort((a, b) => (a.nirfRanking || 999) - (b.nirfRanking || 999));
         break;
       case "fees-low":
-        result.sort((a, b) => (a.fees?.btech || 9999999) - (b.fees?.btech || 9999999));
+        result.sort((a, b) => (a.fees?.btech || a.fees?.mba || 9999999) - (b.fees?.btech || b.fees?.mba || 9999999));
         break;
       case "fees-high":
-        result.sort((a, b) => (b.fees?.btech || 0) - (a.fees?.btech || 0));
+        result.sort((a, b) => (b.fees?.btech || b.fees?.mba || 0) - (a.fees?.btech || a.fees?.mba || 0));
         break;
       case "package":
         result.sort((a, b) => (b.avgPackage || 0) - (a.avgPackage || 0));
@@ -351,6 +384,7 @@ export default function CollegesClient({ initialColleges = [] }) {
                   </div>
                   <div className="flex-1 overflow-y-auto p-5">
                     <FilterPanel
+                      courseOptions={availableCourses}
                       selectedCourses={selectedCourses}
                       setSelectedCourses={setSelectedCourses}
                       feeRange={feeRange}
@@ -417,6 +451,7 @@ export default function CollegesClient({ initialColleges = [] }) {
                   )}
                 </div>
                 <FilterPanel
+                  courseOptions={availableCourses}
                   selectedCourses={selectedCourses}
                   setSelectedCourses={setSelectedCourses}
                   feeRange={feeRange}

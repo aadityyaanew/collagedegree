@@ -58,7 +58,7 @@ export default function FeaturesSection({ features = defaultFeatures }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
@@ -66,7 +66,7 @@ export default function FeaturesSection({ features = defaultFeatures }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ delay: i * 0.05, duration: 0.3, ease: "easeOut" }}
-              className="bg-white border border-slate-200/90 rounded-2xl p-4.5 sm:p-6 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-200 hover:-translate-y-1 transform-gpu"
+              className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-200 hover:-translate-y-1 transform-gpu"
             >
               <div className={`h-12 w-12 rounded-xl ${feature.bgColor} ${feature.borderColor} border flex items-center justify-center mb-5 shadow-2xs`}>
                 <feature.icon className={`h-6 w-6 ${feature.color}`} />

@@ -110,6 +110,14 @@ export default function CollegesPage() {
         } else {
           setColleges([savedCollege, ...colleges]);
         }
+        if (typeof window !== "undefined") {
+          try {
+            const bc = new BroadcastChannel("cc_college_updates");
+            bc.postMessage({ type: "COLLEGE_SAVED", id: savedCollege.id || savedCollege._id });
+            bc.close();
+          } catch (e) {}
+          localStorage.setItem("cc_last_college_update", Date.now().toString());
+        }
         closeForm();
       } else {
         const err = await res.json();
@@ -163,6 +171,14 @@ export default function CollegesPage() {
       const res = await fetch(`/api/admin/colleges?id=${id}`, { method: "DELETE" });
       if (res.ok) {
         setColleges(colleges.filter(c => c._id !== id));
+        if (typeof window !== "undefined") {
+          try {
+            const bc = new BroadcastChannel("cc_college_updates");
+            bc.postMessage({ type: "COLLEGE_DELETED", id });
+            bc.close();
+          } catch (e) {}
+          localStorage.setItem("cc_last_college_update", Date.now().toString());
+        }
       }
     } catch (error) {
       console.error("Failed to delete college");

@@ -1,14 +1,42 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { getBreadcrumbSchema } from "@/lib/schema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://comparedegree.com";
 
 export const metadata = {
-  title: "Terms of Service - Compare Degree",
-  description: "Terms and conditions for using Compare Degree.",
+  title: "Terms of Service — Compare Degree",
+  description:
+    "Review the terms and conditions for using Compare Degree for university comparisons and higher education counselling.",
+  alternates: {
+    canonical: "/terms-of-service",
+  },
+  openGraph: {
+    title: "Terms of Service — Compare Degree",
+    description: "Terms and conditions for using the Compare Degree website and tools.",
+    url: `${SITE_URL}/terms-of-service`,
+    siteName: "Compare Degree",
+    locale: "en_IN",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function TermsOfServicePage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Terms of Service", url: "/terms-of-service" },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
       <main className="flex-1 bg-slate-50 py-16">
         <div className="container-main max-w-4xl">
@@ -28,7 +56,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">2. Use License</h2>
               <p>
-                Permission is granted to temporarily download one copy of the materials (information or software) on Compare Degree's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
+                Permission is granted to temporarily download one copy of the materials (information or software) on Compare Degree&apos;s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
               </p>
               <p>Under this license you may not:</p>
               <ul className="list-disc pl-6 space-y-2">
@@ -40,17 +68,17 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">3. Disclaimer regarding College Data</h2>
               <p>
-                The materials on Compare Degree's website are provided on an 'as is' basis. While we strive to provide accurate fee structures, placement statistics, and university details, these are subject to change by the respective institutions. We do not warrant or make any representations concerning the absolute accuracy, likely results, or reliability of the use of the materials on its website. Students are advised to verify details independently before enrollment.
+                The materials on Compare Degree&apos;s website are provided on an &apos;as is&apos; basis. While we strive to provide accurate fee structures, placement statistics, and university details, these are subject to change by the respective institutions. We do not warrant or make any representations concerning the absolute accuracy, likely results, or reliability of the use of the materials on its website. Students are advised to verify details independently before enrollment.
               </p>
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">4. Limitations</h2>
               <p>
-                In no event shall Compare Degree or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Compare Degree's website, even if an authorized representative has been notified orally or in writing of the possibility of such damage.
+                In no event shall Compare Degree or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Compare Degree&apos;s website, even if an authorized representative has been notified orally or in writing of the possibility of such damage.
               </p>
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">5. Revisions and Errata</h2>
               <p>
-                The materials appearing on Compare Degree's website could include technical, typographical, or photographic errors. Compare Degree does not warrant that any of the materials on its website are accurate, complete, or current. We may make changes to the materials contained on its website at any time without notice.
+                The materials appearing on Compare Degree&apos;s website could include technical, typographical, or photographic errors. Compare Degree does not warrant that any of the materials on its website are accurate, complete, or current. We may make changes to the materials contained on its website at any time without notice.
               </p>
 
               <h2 className="text-2xl font-bold text-navy mt-10 mb-4">6. Contact Information</h2>

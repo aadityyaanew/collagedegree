@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Building2, ArrowLeftRight, BookOpen, Compass } from "lucide-react";
+import { Home, Building2, ArrowLeftRight, BookOpen, UserCheck } from "lucide-react";
 
 const NAV_ITEMS = [
   {
@@ -30,9 +30,9 @@ const NAV_ITEMS = [
     isActive: (pathname) => pathname.startsWith("/courses"),
   },
   {
-    label: "Finder",
+    label: "Advisor",
     href: "/course-finder",
-    icon: Compass,
+    icon: UserCheck,
     isSpecial: true,
     isActive: (pathname) => pathname.startsWith("/course-finder"),
   },
