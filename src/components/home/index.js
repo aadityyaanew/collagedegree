@@ -1,0 +1,12 @@
+export { default as HeroSection } from "./HeroSection";
+export { default as StatsSection } from "./StatsSection";
+export { default as FeaturesSection } from "./FeaturesSection";
+export { default as PopularComparisonsSection } from "./PopularComparisonsSection";
+export { default as TrustedUniversitiesSection } from "./TrustedUniversitiesSection";
+export { default as CollegePredictorSection } from "./CollegePredictorSection";
+export { default as ExploreCoursesSection } from "./ExploreCoursesSection";
+export { default as HowItWorksSection } from "./HowItWorksSection";
+export { default as TestimonialsSection } from "./TestimonialsSection";
+export { default as CtaSection } from "./CtaSection";
+export { default as ContactSection } from "./ContactSection";
+export { default as DegreeComparisonSection } from "./DegreeComparisonSection";

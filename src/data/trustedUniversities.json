@@ -1,0 +1,476 @@
+[
+  {
+    "name": "Amity University",
+    "id": "amity-university-online-900012",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/amity+logo.png",
+    "courses": "49 Courses"
+  },
+  {
+    "name": "LPU Online",
+    "id": "lpu-online-900011",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/lpulogo.png",
+    "courses": "31 Courses"
+  },
+  {
+    "name": "Vellore Institute of Technology",
+    "id": "vellore-institute-of-technology-vit-online-900006",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/vitlogo.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Manipal University Jaipur",
+    "id": "manipal-university-jaipur-muj-online-900009",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/manipallogo.png",
+    "courses": "34 Courses"
+  },
+  {
+    "name": "Chandigarh University",
+    "id": "chandigarh-university-online-900004",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/culogo.png",
+    "courses": "51 Courses"
+  },
+  {
+    "name": "JAIN Online",
+    "id": "jain-online-900017",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/jainlogo.png",
+    "courses": "53 Courses"
+  },
+  {
+    "name": "DY Patil University",
+    "id": "dy-patil-university-online-900020",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/dypatillogo.png",
+    "courses": "25 Courses"
+  },
+  {
+    "name": "GLA University",
+    "id": "gla-university-online-900002",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/glalogo.png",
+    "courses": "15 Courses"
+  },
+  {
+    "name": "Sikkim Manipal University",
+    "id": "smu-online-900008",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/smulogo.png",
+    "courses": "22 Courses"
+  },
+  {
+    "name": "Bharti Vidhya Peeth",
+    "id": "bharati-vidyapeeth-online-900016",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/bhartipeethlogo.png",
+    "courses": "43 Courses"
+  },
+  {
+    "name": "Manipal Academy of Higher Education",
+    "id": "manipal-academy-of-higher-education-mahe-online-900019",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/manipal+logo.png",
+    "courses": "25 Courses"
+  },
+  {
+    "name": "Galgotias University",
+    "id": "galgotia-university-online-900005",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/galgotiaslogo.png",
+    "courses": "18 Courses"
+  },
+  {
+    "name": "Jaypee Institute",
+    "id": "jiit-online-900015",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/jaypeelogo.png",
+    "courses": "5 Courses"
+  },
+  {
+    "name": "Uttaranchal University",
+    "id": "uttaranchal-university-online-900014",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/uttaranchallogo.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "Shoolini University",
+    "id": "shoolini-university-online-900021",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/shoolinilogo.png",
+    "courses": "37 Courses"
+  },
+  {
+    "name": "Alliance University",
+    "id": "alliance-university-online-900003",
+    "logo": "https://content.findmycollege.com/assets/alliance_3b21c42d27.png",
+    "courses": "16 Courses"
+  },
+  {
+    "name": "AMET University",
+    "id": "amet-university-online-900013",
+    "logo": "https://content.findmycollege.com/assets/amet_5c8d811962.png",
+    "courses": "15 Courses"
+  },
+  {
+    "name": "Manav Rachna University",
+    "id": "manav-rachna-university-online-900037",
+    "logo": "https://content.findmycollege.com/assets/manavrachna_e3876bf174.png",
+    "courses": "25 Courses"
+  },
+  {
+    "name": "Mizoram University",
+    "id": "mizoram-university-online-900010",
+    "logo": "https://content.findmycollege.com/assets/mizoram_b55bae98a3.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Mangalayatan University",
+    "id": "mangalayatan-university-online-900043",
+    "logo": "https://content.findmycollege.com/assets/mangalyan_dd4f3fc37e.png",
+    "courses": "73 Courses"
+  },
+  {
+    "name": "Chaudhary Charan Singh University",
+    "id": "chaudhary-charan-singh-university-ccsu-online-900001",
+    "logo": "https://content.findmycollege.com/assets/chaudhary_6bca34959f.png",
+    "courses": "29 Courses"
+  },
+  {
+    "name": "Aligarh University",
+    "id": "aligarh-university-amu-online-900007",
+    "logo": "https://content.findmycollege.com/assets/aligarh_4f7f1524ea.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "Christ University",
+    "id": "christ-university-online-900022",
+    "logo": "https://content.findmycollege.com/assets/canterbury_a93d3465ee.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Graphic Era University",
+    "id": "graphic-era-university-online-900025",
+    "logo": "https://content.findmycollege.com/assets/graphic_3fd7a90ecd.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "Jagannath University",
+    "id": "jagannath-university-online-900031",
+    "logo": "https://content.findmycollege.com/assets/jagannath_d4155c0f5b.png",
+    "courses": "10 Courses"
+  },
+  {
+    "name": "Datta Meghe University",
+    "id": "datta-meghe-university-online-900034",
+    "logo": "https://content.findmycollege.com/assets/datameghe_bbff667f24.png",
+    "courses": "15 Courses"
+  },
+  {
+    "name": "ARKA Jain University",
+    "id": "aju-online-900035",
+    "logo": "https://content.findmycollege.com/assets/arka_5344260979.png",
+    "courses": "9 Courses"
+  },
+  {
+    "name": "SASTRA University",
+    "id": "shanmugha-arts-science-technology-research-academy-sastra-online-900046",
+    "logo": "https://content.findmycollege.com/assets/sastra_bb7efcc881.png",
+    "courses": "9 Courses"
+  },
+  {
+    "name": "Vivekananda Global University Jaipur",
+    "id": "vivekananda-global-university-jaipur-online-900023",
+    "logo": "https://content.findmycollege.com/assets/vgu_e0469e2912.png",
+    "courses": "22 Courses"
+  },
+  {
+    "name": "Andhra University",
+    "id": "andhra-university-online-900026",
+    "logo": "https://content.findmycollege.com/assets/andhra_3dcba2a903.png",
+    "courses": "8 Courses"
+  },
+  {
+    "name": "Dayananda Sagar University",
+    "id": "dayananda-sagar-university-online-900027",
+    "logo": "https://content.findmycollege.com/assets/dayanand_c12706500e.png",
+    "courses": "16 Courses"
+  },
+  {
+    "name": "Deen Dayal Upadhyaya Gorakhpur University",
+    "id": "deen-dayal-upadhyaya-gorakhpur-university-online-900040",
+    "logo": "https://content.findmycollege.com/assets/deendayal_9ddff249de.png",
+    "courses": "45 Courses"
+  },
+  {
+    "name": "Noida International University",
+    "id": "noida-international-university-online-900048",
+    "logo": "https://content.findmycollege.com/assets/noida_international_3194f19db9.png",
+    "courses": "17 Courses"
+  },
+  {
+    "name": "Shobhit University",
+    "id": "shobhit-university-online-900041",
+    "logo": "https://content.findmycollege.com/assets/shobit_4c643bb35d.png",
+    "courses": "19 Courses"
+  },
+  {
+    "name": "Guru Kashi University",
+    "id": "gku-online-900030",
+    "logo": "https://content.findmycollege.com/assets/guru_kashi_e3bd2b4d00.png",
+    "courses": "22 Courses"
+  },
+  {
+    "name": "Jain University ODL",
+    "id": "jain-university-odl-online-900018",
+    "logo": "https://content.findmycollege.com/assets/jain_137f3b49fb.png",
+    "courses": "36 Courses"
+  },
+  {
+    "name": "Parul University",
+    "id": "parul-university-online-900045",
+    "logo": "https://content.findmycollege.com/assets/parul_684a3546eb.png",
+    "courses": "38 Courses"
+  },
+  {
+    "name": "NMIMS University",
+    "id": "nmims-online-900024",
+    "logo": "https://content.findmycollege.com/assets/nmis_524e4e613b.png",
+    "courses": "20 Courses"
+  },
+  {
+    "name": "Jamia Hamdard University",
+    "id": "jamia-hamdard-university-online-900038",
+    "logo": "https://content.findmycollege.com/assets/jamia_hamdard_256222c45c.png",
+    "courses": "10 Courses"
+  },
+  {
+    "name": "SRM University",
+    "id": "srm-online-900039",
+    "logo": "https://content.findmycollege.com/assets/srm_3aebfe8a64.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "UPES",
+    "id": "upes-online-900063",
+    "logo": "https://content.findmycollege.com/assets/upes_cac12df152.png",
+    "courses": "25 Courses"
+  },
+  {
+    "name": "Sandip University",
+    "id": "sandip-university-online-900058",
+    "logo": "https://content.findmycollege.com/assets/sandip_31117d2054.png",
+    "courses": "4 Courses"
+  },
+  {
+    "name": "Alagappa University",
+    "id": "alagappa-university-online-900088",
+    "logo": "https://content.findmycollege.com/assets/Logo_19_ba3b0f9028.png",
+    "courses": "12 Courses"
+  },
+  {
+    "name": "Amrita Vishwa Vidyapeetham",
+    "id": "amrita-university-online-900032",
+    "logo": "https://content.findmycollege.com/assets/Logo_12_7b5c63a540.png",
+    "courses": "20 Courses"
+  },
+  {
+    "name": "B.S. Abdur Rahman Crescent Institute of Science and Technology",
+    "id": "b-s-abdur-rahman-crescent-institute-of-science-and-technology-online-900057",
+    "logo": "https://content.findmycollege.com/assets/Logo_30_d7c21ec9e0.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "Bangalore University",
+    "id": "bangalore-university-online-900066",
+    "logo": "https://content.findmycollege.com/assets/Logo_24_a2bbc3a01d.png",
+    "courses": "11 Courses"
+  },
+  {
+    "name": "Bharathidasan University",
+    "id": "bharathidasan-university-online-900093",
+    "logo": "https://content.findmycollege.com/assets/Logo_26_71baa5e234.png",
+    "courses": "12 Courses"
+  },
+  {
+    "name": "BML Munjal University",
+    "id": "bml-munjal-university-regular-online-900082",
+    "logo": "https://content.findmycollege.com/assets/Logo_8_fe755d3c8a.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Chitkara University",
+    "id": "chitkara-university-online-900086",
+    "logo": "https://content.findmycollege.com/assets/Logo_23_87e87a7310.png",
+    "courses": "9 Courses"
+  },
+  {
+    "name": "Ganpat University",
+    "id": "ganpat-university-online-900055",
+    "logo": "https://content.findmycollege.com/assets/Logo_20_68824f953f.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Guru Ghasidas Vishwavidyalaya",
+    "id": "guru-ghasidas-vishwavidyalaya-online-900080",
+    "logo": "https://content.findmycollege.com/assets/Logo_17_397d215986.png",
+    "courses": "15 Courses"
+  },
+  {
+    "name": "Indira Gandhi National Open University",
+    "id": "indira-gandhi-national-open-university-ignou-online-900047",
+    "logo": "https://content.findmycollege.com/assets/Logo_29_00438e7001.png",
+    "courses": "19 Courses"
+  },
+  {
+    "name": "Integral University",
+    "id": "integral-university-online-900068",
+    "logo": "https://content.findmycollege.com/assets/Logo_1_de6fa498fd.png",
+    "courses": "18 Courses"
+  },
+  {
+    "name": "Jaipur National University",
+    "id": "jaipur-national-university-online-900069",
+    "logo": "https://content.findmycollege.com/assets/Logo_15_5ca7d0d856.png",
+    "courses": "30 Courses"
+  },
+  {
+    "name": "JSS Academy of Higher Education & Research",
+    "id": "jss-academy-of-higher-education-research-online-900081",
+    "logo": "https://content.findmycollege.com/assets/Logo_21_c36c8dc664.png",
+    "courses": "12 Courses"
+  },
+  {
+    "name": "Kalasalingam Academy of Research and Higher Education",
+    "id": "kare-cdoe-online-900070",
+    "logo": "https://content.findmycollege.com/assets/Logo_10_d3f4080a91.png",
+    "courses": "10 Courses"
+  },
+  {
+    "name": "Kalinga Institute of Industrial Technology",
+    "id": "kalinga-institute-of-industrial-technology-kiit-online-900044",
+    "logo": "https://content.findmycollege.com/assets/Logo_2_42e1bb869e.png",
+    "courses": "10 Courses"
+  },
+  {
+    "name": "Karnataka State Open University",
+    "id": "karnataka-state-open-university-ksou-online-900029",
+    "logo": "https://content.findmycollege.com/assets/Logo_27_7a6f37ed33.png",
+    "courses": "4 Courses"
+  },
+  {
+    "name": "Kurukshetra University",
+    "id": "kurukshetra-university-online-900053",
+    "logo": "https://content.findmycollege.com/assets/Logo_14_a4208872db.png",
+    "courses": "28 Courses"
+  },
+  {
+    "name": "Maharishi Markandeshwar (Deemed to be University)",
+    "id": "mmu-online-900087",
+    "logo": "https://content.findmycollege.com/assets/Logo_11_96e00fcc83.png",
+    "courses": "5 Courses"
+  },
+  {
+    "name": "MAEER's MIT School of Distance Education",
+    "id": "mitsde-odl-online-900085",
+    "logo": "https://content.findmycollege.com/assets/Logo_13_c1ef625062.png",
+    "courses": "27 Courses"
+  },
+  {
+    "name": "P P Savani University - Centre for Distance and Online Education",
+    "id": "pp-savni-university-online-900072",
+    "logo": "https://content.findmycollege.com/assets/Logo_16_77ec40f320.png",
+    "courses": "9 Courses"
+  },
+  {
+    "name": "University of Mysore",
+    "id": "university-of-mysore-online-900078",
+    "logo": "https://content.findmycollege.com/assets/Logo_4_eee39729a5.png",
+    "courses": "12 Courses"
+  },
+  {
+    "name": "Vel's Institute of Science, Technology & Advanced Studies (VISTAS)",
+    "id": "vel-s-institute-of-science-technology-advanced-studies-vistas-online-900074",
+    "logo": "https://content.findmycollege.com/assets/Logo_22_b46f6a7b90.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Visveswaraiah Technological University",
+    "id": "vtu-online-900092",
+    "logo": "https://content.findmycollege.com/assets/Logo_5_1050f33d18.png",
+    "courses": "16 Courses"
+  },
+  {
+    "name": "Sharda University",
+    "id": "sharda-university-online-900054",
+    "logo": "https://content.findmycollege.com/assets/Logo_18_4a04a9838b.png",
+    "courses": "15 Courses"
+  },
+  {
+    "name": "Shivaji University, Kolhapur",
+    "id": "shivaji-university-online-900075",
+    "logo": "https://content.findmycollege.com/assets/Logo_25_19b0937db6.png",
+    "courses": "7 Courses"
+  },
+  {
+    "name": "Vignan's Foundation for Science, Technology and Research",
+    "id": "vignan-online-900051",
+    "logo": "https://content.findmycollege.com/assets/Logo_7_88939c8161.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "Prin. L. N. Welingkar Institute of Management Development & Research",
+    "id": "welingkar-university-online-900036",
+    "logo": "https://content.findmycollege.com/assets/Logo_9_be1232e9aa.png",
+    "courses": "24 Courses"
+  },
+  {
+    "name": "Meenakshi Academy of Higher Education and Research",
+    "id": "meenakshi-academy-of-higher-education-and-research-maher-online-900062",
+    "logo": "https://content.findmycollege.com/assets/Logo_28_d263305389.png",
+    "courses": "3 Courses"
+  },
+  {
+    "name": "Chandigarh University-ODL",
+    "id": "chandigarh-university-odl-online-900028",
+    "logo": "https://s3.ap-south-1.amazonaws.com/findmycollege.com/culogo.png",
+    "courses": "44 Courses"
+  },
+  {
+    "name": "Dr. M.G.R. Educational and Research Institute",
+    "id": "dr-m-g-r-educational-and-research-institute-online-900056",
+    "logo": "https://content.findmycollege.com/assets/dr_mgr_e676deb03f.png",
+    "courses": "8 Courses"
+  },
+  {
+    "name": "Guru Jambeshwar University of Science and Technology",
+    "id": "guru-jambheshwar-university-of-science-and-technology-online-900076",
+    "logo": "https://content.findmycollege.com/assets/guru_j_logo_df28d35b14.png",
+    "courses": "29 Courses"
+  },
+  {
+    "name": "Indian Institute of Foreign Trade",
+    "id": "indian-institute-of-foreign-trade-iift-online-900049",
+    "logo": "https://content.findmycollege.com/undefined/universities/900049/logo/019eb5d0-4c9a-7226-ac4b-804dd51f54d7.png",
+    "courses": "6 Courses"
+  },
+  {
+    "name": "Jamia University - ODL",
+    "id": "jmi-odl-online-900042",
+    "logo": "https://content.findmycollege.com/assets/jamia_milia_odl_0146633d71.png",
+    "courses": "39 Courses"
+  },
+  {
+    "name": "Maharishi Dayanand University",
+    "id": "maharshi-dayanand-university-mdu-online-900071",
+    "logo": "https://content.findmycollege.com/assets/maharishi_dyannand_a44b5a888f.png",
+    "courses": "14 Courses"
+  },
+  {
+    "name": "MATS University",
+    "id": "mats-university-online-900079",
+    "logo": "https://content.findmycollege.com/assets/mat_uni_220e046e64.png",
+    "courses": "8 Courses"
+  },
+  {
+    "name": "Yenepoya",
+    "id": "yenepoya-online-900067",
+    "logo": "https://content.findmycollege.com/assets/yenpoya_cbcd1e2aa8.png",
+    "courses": "19 Courses"
+  },
+  {
+    "name": "Indian Institute of Information Technology Vadodara",
+    "id": "iiit-vadodara-online-900033",
+    "logo": "https://content.findmycollege.com/assets/iiit_2a8454d718.png",
+    "courses": "7 Courses"
+  }
+]
