@@ -15,7 +15,13 @@ const noCacheHeaders = {
 export async function GET() {
   try {
     await dbConnect();
-    const colleges = await College.find({}).sort({ createdAt: -1 });
+    const colleges = await College.find({}).sort({ order: 1, createdAt: -1 }).lean();
+    colleges.sort((a, b) => {
+      const orderA = typeof a.order === 'number' ? a.order : 999999;
+      const orderB = typeof b.order === 'number' ? b.order : 999999;
+      if (orderA !== orderB) return orderA - orderB;
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    });
     return NextResponse.json(colleges, { headers: noCacheHeaders });
   } catch (error) {
     return NextResponse.json(
@@ -36,6 +42,11 @@ export async function POST(request) {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
+    }
+
+    if (body.order === undefined || body.order === null) {
+      const maxCollege = await College.findOne({}).sort({ order: -1 }).select('order').lean();
+      body.order = maxCollege && typeof maxCollege.order === 'number' ? maxCollege.order + 1 : 0;
     }
 
     const college = new College(body);

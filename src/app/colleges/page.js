@@ -55,8 +55,14 @@ export default async function CollegesPage() {
   let initialColleges = [];
   try {
     await dbConnect();
-    const dbColleges = await College.find({}).sort({ createdAt: -1 }).lean();
+    const dbColleges = await College.find({}).sort({ order: 1, createdAt: -1 }).lean();
     if (dbColleges && dbColleges.length > 0) {
+      dbColleges.sort((a, b) => {
+        const orderA = typeof a.order === 'number' ? a.order : 999999;
+        const orderB = typeof b.order === 'number' ? b.order : 999999;
+        if (orderA !== orderB) return orderA - orderB;
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+      });
       initialColleges = dbColleges.map((c) => ({
         ...c,
         _id: c._id.toString(),

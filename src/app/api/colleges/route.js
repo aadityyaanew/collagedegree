@@ -62,16 +62,24 @@ const normalizeCollege = (c) => {
     highestPackage: typeof c.highestPackage === 'number' && c.highestPackage > 0 ? c.highestPackage : (parseFloat(c.highestPackage || c.placements?.highest || 0) || 0),
     about: c.about || '',
     topRecruiters: (Array.isArray(c.topRecruiters) && c.topRecruiters.length > 0) ? c.topRecruiters : [],
+    order: typeof c.order === 'number' ? c.order : 0,
   };
 };
 
 export async function GET() {
   try {
     await dbConnect();
-    let colleges = await College.find({}).sort({ createdAt: -1 }).lean();
+    let colleges = await College.find({}).sort({ order: 1, createdAt: -1 }).lean();
 
     if (!colleges || colleges.length === 0) {
       colleges = [];
+    } else {
+      colleges.sort((a, b) => {
+        const orderA = typeof a.order === 'number' ? a.order : 999999;
+        const orderB = typeof b.order === 'number' ? b.order : 999999;
+        if (orderA !== orderB) return orderA - orderB;
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+      });
     }
 
     const normalized = colleges.map(normalizeCollege);

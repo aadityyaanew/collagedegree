@@ -22,6 +22,7 @@ const collegeSchema = new mongoose.Schema(
     about: { type: String },
     topRecruiters: [{ type: String }],
     cutoff: { type: Map, of: String }, // e.g., { "merit": "50% marks" }
+    order: { type: Number, default: 0, index: true },
   },
   {
     timestamps: true,

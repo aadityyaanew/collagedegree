@@ -48,6 +48,7 @@ const MIN_PACKAGES = [
 ];
 
 const sortOptions = [
+  { value: "featured", label: "Featured (Default)" },
   { value: "ranking", label: "NIRF Ranking" },
   { value: "fees-low", label: "Fees: Low to High" },
   { value: "fees-high", label: "Fees: High to Low" },
@@ -167,7 +168,7 @@ export default function CollegesClient({ initialColleges = [] }) {
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [feeRange, setFeeRange] = useState("All");
   const [minPackage, setMinPackage] = useState("All");
-  const [sort, setSort] = useState("ranking");
+  const [sort, setSort] = useState("featured");
   const [availableCourses, setAvailableCourses] = useState(ALL_COURSES);
   const [collegeList, setCollegeList] = useState(
     initialColleges && initialColleges.length > 0 ? initialColleges : fallbackColleges
@@ -285,6 +286,9 @@ export default function CollegesClient({ initialColleges = [] }) {
 
     // Sorting
     switch (sort) {
+      case "featured":
+        // Preserves custom admin ordering from backend
+        break;
       case "ranking":
         result.sort((a, b) => (a.nirfRanking || 999) - (b.nirfRanking || 999));
         break;

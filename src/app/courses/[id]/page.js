@@ -21,7 +21,13 @@ async function getCourseData(slug) {
     if (!course) return null;
 
     // Fetch all colleges to match top colleges
-    const colleges = await College.find({}).lean();
+    const colleges = await College.find({}).sort({ order: 1, createdAt: -1 }).lean();
+    colleges.sort((a, b) => {
+      const orderA = typeof a.order === 'number' ? a.order : 999999;
+      const orderB = typeof b.order === 'number' ? b.order : 999999;
+      if (orderA !== orderB) return orderA - orderB;
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    });
     const formattedColleges = colleges.map((c) => ({
       ...c,
       _id: c._id.toString(),
