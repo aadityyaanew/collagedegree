@@ -20,7 +20,7 @@ const fadeUp = {
 
 const BubblingBackground = () => {
   const [bubbles, setBubbles] = useState([]);
-  
+
   useEffect(() => {
     const newBubbles = Array.from({ length: 25 }).map((_, i) => ({
       id: i,
@@ -168,8 +168,10 @@ export default function HeroSection() {
               </motion.h1>
 
               {/* Subheading */}
-              <motion.p variants={fadeUp} custom={2} className="text-[17px] text-slate-700 font-medium leading-relaxed mb-6 max-w-[480px]">
-                Unbiased side-by-side comparisons of fees, verified placements, NIRF rankings, and ROI for top colleges across India. Stop guessing, start deciding.
+              <motion.p variants={fadeUp} custom={2} className="text-[17px] text-slate-700 font-medium leading-relaxed mb-6 max-w-xl">
+                Side-by-side comparisons of fees, verified placements<br className="hidden sm:inline" />
+                NIRF rankings, and ROI for top colleges<br className="hidden sm:inline" />
+                across India. Stop guessing, start deciding.
               </motion.p>
 
               {/* Search */}

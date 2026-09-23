@@ -720,20 +720,13 @@ function CompareContent() {
                     </CompareSection>
 
                     {/* Rankings */}
-                    <CompareSection id="sec-rankings" title="Rankings & Ratings" colSpan={selectedColleges.length + 1}>
+                    <CompareSection id="sec-rankings" title="Rankings" colSpan={selectedColleges.length + 1}>
                       <CompareRow
                         label="NIRF Ranking"
                         values={selectedColleges.map((c) =>
                           c.nirfRanking ? `#${c.nirfRanking}` : ""
                         )}
                         highlightBetter="lower"
-                      />
-                      <CompareRow
-                        label="Student Rating"
-                        values={selectedColleges.map((c) =>
-                          c.rating ? `${c.rating}/5` : ""
-                        )}
-                        highlightBetter="higher"
                       />
                       <CompareRow
                         label="Reviews"
