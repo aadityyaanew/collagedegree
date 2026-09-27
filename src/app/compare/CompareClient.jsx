@@ -431,6 +431,21 @@ function CompareContent() {
   const excludeIds = selectedIds.filter(Boolean);
   const hasComparison = selectedColleges.length >= 2;
 
+  useEffect(() => {
+    if (hasComparison) {
+      try {
+        const isSub = localStorage.getItem("cc_lead_submitted") === "true";
+        if (!isSub) {
+          import("@/components/shared/LeadPopupModal").then(({ openLeadModal }) => {
+            openLeadModal({ mandatory: true });
+          });
+        }
+      } catch (e) {
+        console.warn("Storage check error:", e);
+      }
+    }
+  }, [hasComparison]);
+
   const allFeeKeys = useMemo(() => {
     const defaultKeys = ["btech", "mtech", "mba", "bba", "bca", "mca", "bsc", "bcom", "llb", "bpharm"];
     const set = new Set(defaultKeys);

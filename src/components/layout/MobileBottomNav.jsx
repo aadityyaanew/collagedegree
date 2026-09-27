@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Building2, ArrowLeftRight, BookOpen, UserCheck } from "lucide-react";
+import { openLeadModal } from "@/components/shared/LeadPopupModal";
 
 const NAV_ITEMS = [
   {
@@ -59,6 +60,7 @@ export default function MobileBottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => openLeadModal()}
                 className="flex flex-col items-center justify-center flex-1 py-1 group relative active:scale-90 transition-transform duration-150"
               >
                 <div
@@ -89,6 +91,7 @@ export default function MobileBottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => openLeadModal()}
               className="flex flex-col items-center justify-center flex-1 py-1 group relative active:scale-90 transition-transform duration-150"
             >
               <div

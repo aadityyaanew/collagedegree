@@ -55,9 +55,9 @@ const DEFAULT_LISTED_COURSES = [
   "Executive MBA",
 ];
 
-export function openLeadModal() {
+export function openLeadModal(options = {}) {
   if (typeof window !== "undefined") {
-    window.dispatchEvent(new CustomEvent("open-lead-modal"));
+    window.dispatchEvent(new CustomEvent("open-lead-modal", { detail: options }));
   }
 }
 
@@ -67,6 +67,7 @@ export default function LeadPopupModal() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [hasAlreadySubmitted, setHasAlreadySubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMandatory, setIsMandatory] = useState(false);
   const [errors, setErrors] = useState({});
   const [coursesList, setCoursesList] = useState(DEFAULT_LISTED_COURSES);
 
@@ -104,8 +105,9 @@ export default function LeadPopupModal() {
 
   // Listen for explicit manual open requests (e.g. from Contact section or buttons)
   useEffect(() => {
-    const handleManualOpen = () => {
+    const handleManualOpen = (e) => {
       setIsSubmitted(false);
+      setIsMandatory(!!e?.detail?.mandatory);
       setIsOpen(true);
     };
 
@@ -177,7 +179,9 @@ export default function LeadPopupModal() {
   }
 
   const handleClose = () => {
+    if (isMandatory && !isSubmitted) return;
     setIsOpen(false);
+    setIsMandatory(false);
     sessionStorage.setItem("cc_lead_last_closed", Date.now().toString());
   };
 
@@ -270,13 +274,15 @@ export default function LeadPopupModal() {
               <div className="h-1 sm:h-1.5 bg-crimson shrink-0" />
 
               {/* Close Button */}
-              <button
-                onClick={handleClose}
-                className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors z-20"
-                aria-label="Close modal"
-              >
-                <X className="h-4 w-4 sm:h-5 sm:w-5" />
-              </button>
+              {(!isMandatory || isSubmitted) && (
+                <button
+                  onClick={handleClose}
+                  className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors z-20"
+                  aria-label="Close modal"
+                >
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              )}
 
               {/* Modal Content */}
               <div className="p-4 sm:p-8 overflow-y-auto">

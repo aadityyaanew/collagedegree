@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
+import { openLeadModal } from "@/components/shared/LeadPopupModal";
 
 const navLinks = [
   { label: "Colleges", href: "/colleges" },
@@ -65,6 +66,7 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
+                onClick={() => openLeadModal()}
                 className="px-3.5 py-2 text-sm font-semibold text-slate-900 hover:text-crimson transition-colors rounded-md hover:bg-slate-50"
               >
                 {link.label}
@@ -124,6 +126,7 @@ export default function Navbar() {
                         <SheetClose asChild key={link.label}>
                           <Link
                             href={link.href}
+                            onClick={() => openLeadModal()}
                             className="flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold text-slate-800 hover:text-crimson hover:bg-rose-50/50 rounded-xl transition-all"
                           >
                             <span>{link.label}</span>
