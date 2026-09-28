@@ -103,6 +103,12 @@ export default function LeadPopupModal() {
     fetchListedCourses();
   }, []);
 
+  // Close mandatory modal on navigation (pathname change)
+  useEffect(() => {
+    setIsOpen(false);
+    setIsMandatory(false);
+  }, [pathname]);
+
   // Listen for explicit manual open requests (e.g. from Contact section or buttons)
   useEffect(() => {
     const handleManualOpen = (e) => {
