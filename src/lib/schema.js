@@ -46,6 +46,7 @@ export function getWebSiteSchema() {
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     name: 'Compare Degree',
+    alternateName: 'CompareDegree',
     url: SITE_URL,
     description:
       'Compare colleges, courses, fees, placements, rankings, and reviews side by side.',
