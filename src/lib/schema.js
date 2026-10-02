@@ -165,7 +165,7 @@ export function getBreadcrumbSchema(items = []) {
 }
 
 /**
- * ItemList Schema for listings (Colleges / Courses)
+ * ItemList Schema for listings (Colleges / Courses / Blogs)
  */
 export function getItemListSchema(title, items = []) {
   return {
@@ -180,3 +180,48 @@ export function getItemListSchema(title, items = []) {
     })),
   };
 }
+
+/**
+ * BlogPosting Schema for Articles
+ */
+export function getBlogPostingSchema(blog) {
+  if (!blog) return null;
+
+  const blogUrl = `${SITE_URL}/blog/${blog.slug}`;
+  const imageUrl = blog.featuredImage?.startsWith('http')
+    ? blog.featuredImage
+    : `${SITE_URL}${blog.featuredImage || '/heroimg.jpeg'}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${blogUrl}#article`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': blogUrl,
+    },
+    headline: blog.seoTitle || blog.title,
+    name: blog.title,
+    description: blog.seoDescription || blog.excerpt,
+    image: [imageUrl],
+    datePublished: blog.publishedAt ? new Date(blog.publishedAt).toISOString() : new Date(blog.createdAt).toISOString(),
+    dateModified: new Date(blog.updatedAt || blog.publishedAt || blog.createdAt).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: blog.author?.name || 'Compare Degree Editorial Team',
+      jobTitle: blog.author?.role || 'Higher Education Analyst',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Compare Degree',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    articleSection: blog.category || 'Higher Education',
+    keywords: Array.isArray(blog.tags) ? blog.tags.join(', ') : undefined,
+  };
+}
+

@@ -16,6 +16,7 @@ const footerLinks = {
     { label: "NIRF Rankings", href: "/colleges" },
   ],
   resources: [
+    { label: "Blog & Guides", href: "/blog" },
     { label: "Free Counselling", href: "/contact" },
     { label: "Course Advisor", href: "/course-finder" },
     { label: "College Predictor", href: "/course-finder" },

@@ -1,6 +1,7 @@
 import dbConnect from '@/lib/mongodb';
 import College from '@/models/College';
 import Course from '@/models/Course';
+import Blog from '@/models/Blog';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://comparedegree.com';
 
@@ -14,6 +15,12 @@ export default async function sitemap() {
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 1.0,
+    },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/colleges`,
@@ -73,6 +80,7 @@ export default async function sitemap() {
 
   let collegeRoutes = [];
   let courseRoutes = [];
+  let blogRoutes = [];
 
   try {
     await dbConnect();
@@ -102,9 +110,27 @@ export default async function sitemap() {
           priority: 0.8,
         }));
     }
+
+    // Fetch dynamic published blogs
+    const blogs = await Blog.find({ status: 'published' }, 'slug updatedAt publishedAt createdAt').lean();
+    if (blogs && blogs.length > 0) {
+      blogRoutes = blogs
+        .filter((b) => b.slug)
+        .map((b) => ({
+          url: `${SITE_URL}/blog/${b.slug}`,
+          lastModified: b.updatedAt
+            ? new Date(b.updatedAt).toISOString()
+            : b.publishedAt
+            ? new Date(b.publishedAt).toISOString()
+            : currentDate,
+          changeFrequency: 'weekly',
+          priority: 0.85,
+        }));
+    }
   } catch (error) {
     console.error('Error generating dynamic sitemap from MongoDB:', error);
   }
 
-  return [...staticRoutes, ...collegeRoutes, ...courseRoutes];
+  return [...staticRoutes, ...collegeRoutes, ...courseRoutes, ...blogRoutes];
 }
+

@@ -7,6 +7,7 @@ import {
   Users,
   Building2,
   GraduationCap,
+  BookOpen,
   LogOut,
   Menu,
   X,
@@ -18,6 +19,7 @@ import { useState } from "react";
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Leads", href: "/admin/leads", icon: Users },
+  { name: "Blogs", href: "/admin/blogs", icon: BookOpen },
   { name: "Colleges", href: "/admin/colleges", icon: Building2 },
   { name: "Courses", href: "/admin/courses", icon: GraduationCap },
 ];
